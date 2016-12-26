@@ -3,6 +3,7 @@ import Axios from 'axios';
 import TopBar from './TopBar'
 import 'bootstrap'
 import '../../style/detail.css'
+const API_HOST=(process.env.NODE_ENV=='development')?'':'http://lib_back.twleo.com';
 class PostDetail extends Component{
     constructor(props){
         super(props);
@@ -19,7 +20,7 @@ class PostDetail extends Component{
     }
     componentWillMount(){
         console.log(this.state.serial);
-        Axios.get(`/api/artData/${this.state.serial}`).then(
+        Axios.get(`${API_HOST}/api/artData/${this.state.serial}`).then(
             function (response) {
                 var data=response.data.data;
                 console.log(data);

@@ -6,6 +6,7 @@ import PostItem from './PostItem'
 import TopBar from './TopBar'
 import Axios from 'axios'
 import $ from 'jquery';
+const API_HOST=(process.env.NODE_ENV=='development')?'':'http://lib_back.twleo.com';
 class PostList extends Component{
     constructor(props){
         super(props);
@@ -23,7 +24,7 @@ class PostList extends Component{
 
     componentDidMount(){
         window.addEventListener('scroll',this.listenScrollEvent);
-        Axios.get(`/api/galleryList/${this.state.page}/${this.state.year}`).then(
+        Axios.get(`${API_HOST}/api/galleryList/${this.state.page}/${this.state.year}`).then(
             function (response){
                 var nodes=[];
                 nodes.push($("#PostList1"));
@@ -70,7 +71,7 @@ class PostList extends Component{
         if(this.state.isLoading  || this.state.isOver) return;
         if((docHeight-winHeight)*0.5<top){
             this.setState({isLoading:true});
-            Axios.get(`/api/galleryList/${this.state.page}/${this.state.year}`).then(
+            Axios.get(`${API_HOST}/api/galleryList/${this.state.page}/${this.state.year}`).then(
                 function (response){
 
                     var nodes=[];
@@ -126,7 +127,7 @@ class PostList extends Component{
     componentWillReceiveProps(nextProps){
         var newyear=nextProps.params.year?nextProps.params.year:'';
         this.setState({year:newyear,item1:[],item2:[],item3:[],item4:[],page:1,isLoading:false,isOver:false});
-        Axios.get(`/api/galleryList/1/${newyear}`).then(
+        Axios.get(`${API_HOST}/api/galleryList/1/${newyear}`).then(
             function (response){
                 var nodes=[];
                 nodes.push($("#PostList1"));
